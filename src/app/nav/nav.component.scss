@@ -1,13 +1,13 @@
 header {
-    background: #7700FF;
+    background:black;
 
     .logo {
         font-weight: bold;
     }
 
     nav {
-        justify-self: right;
-    
+        justify-self: center;
+        
         ul {
             list-style-type: none;
             margin: 0; padding: 0;
@@ -19,9 +19,12 @@ header {
                     padding: 1.5em;
                     text-transform: uppercase;
                     font-size: .8em;
+                    border-radius: 0.6em;
+                    opacity: 0.8;
 
                     &:hover {
-                        background: #8E2BFF;
+                        color: rgb(224, 143, 36);
+                        transition: 0.6s; 
                     }
                 }
             }
