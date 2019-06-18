@@ -14,10 +14,18 @@ export class PongComponent implements OnInit {
   private context: any;
   private socket: any;
   
-  private x = 240;
-  private y = 460;
-  private step = 2;
+  private ballX = 240;
+  private ballY = 460;
+  private ballStep = 2;
   
+  private player1X = 240;
+  private player1Y = 470;
+  private player1Step = 2;
+
+  private player2X = 240;
+  private player2Step = -2;
+
+
   public ngOnInit() {
     this.socket = io("http://localhost:3000")
   }
@@ -33,23 +41,37 @@ export class PongComponent implements OnInit {
           this.gameCanvas.nativeElement.height,
         ), 1000/30);
         //console.log(position.x, position.y)
-        setInterval(() => this.context.fillRect(this.x, this.y, 20, 20), 1000/30);      
+        setInterval(() => this.context.fillRect(this.ballX, this.ballY, 20, 20), 1000/30);    
+        setInterval(() => this.context.fillRect(this.player1X, 470, 50, 10), 1000/30);  
+        setInterval(() => this.context.fillRect(this.player2X, 0, 50, 10), 1000/30); 
         setInterval(() => this.moveBall(), 1000/30);
-
+        setInterval(() => this.movePlayer1(), 1000/30);
+        setInterval(() => this.movePlayer2(), 1000/30);
       });
   }
 
-  public move(direction: string) {
-      this.socket.emit("move", direction);
-      //this.x += 2;
-
+  public movePlayer1()
+  {
+    this.player1X -= this.player1Step;
+    if (this.player1X <= 0 || this.player1X >= 590){
+      this.player1Step *= -1;
+    }   
   }
 
-  public moveBall() {
-    this.y -= this.step
-    if (this.y <= 0 || this.y >= 460){
+  public movePlayer2()
+  {
+    this.player2X -= this.player2Step;
+    if (this.player2X <= 0 || this.player2X >= 590){
+      this.player2Step *= -1;
+    }   
+  }
+
+  public moveBall()
+  {
+    this.ballY -= this.ballStep;
+    if (this.ballY <= 0 || this.ballY >= 460){
       //this.y = 480;
-      this.step *= -1;
+      this.ballStep *= -1;
       //this.x = -100;
     }
   }
